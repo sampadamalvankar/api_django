@@ -51,16 +51,16 @@ def clientapi(request,id=0):
         return JsonResponse("Failed to Add",safe=False)
     elif request.method=='PUT':
         client_data=JSONParser().parse(request)
-        client=Client.objects.get(ClientID=client_data['UserID'])
+        client=Client.objects.get(ClientName=client_data['ClientName'])
         client_serializer=ClientSerializer(client,data=client_data)
         if client_serializer.is_valid():
             client_serializer.save()
             return JsonResponse("updated Successfully",safe=False)
         return JsonResponse("Failed To update")
     elif request.method=='DELETE':
-        client=Client.objects.get(UserId=id)
+        client=Client.objects.get(ClientId=id)
         client.delete()
-        return JsonResponse("Deleted Successfully",safe=False)
+        return JsonResponse("Status code",safe=False)#204
 
 
 @csrf_exempt
